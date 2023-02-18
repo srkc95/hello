@@ -1,51 +1,53 @@
-<!DOCTYPE html>
 <html>
 <head>
-	<title>Add Title Here</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script type="text/javascript" src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
-	<style>
-		body {
-			background-color: #F2F2F2;
-			font-family: Arial, sans-serif;
-			font-size: 16px;
-			margin: 0;
-			padding: 0;
-		}
 
-		h1 {
-			text-align: center;
-			margin-top: 20px;
-		}
+    <title>The Most Subscribed YouTube Channels</title>
 
-		button {
-			background-color: #0070C0;
-			border: none;
-			border-radius: 5px;
-			color: white;
-			cursor: pointer;
-			font-size: 16px;
-			margin: 20px 10px;
-			padding: 10px;
-			width: 40%;
-			max-width: 200px;
-		}
+    <script type="text/javascript"
+	    src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
+    <script type="text/javascript"></script>
 
-		button:hover {
-			background-color: #004684;
-		}
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        
+        #vizContainer {
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #333333;
+            margin-top: 20px;
+        }
+        
+        button {
+            margin: 20px;
+            background-color: #333333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 
-		#vizContainer {
-			height: 100vh;
-			width: 100vw;
-		}
-	</style>
 </head>
+
 <body>
-	<h1>Add Title Here</h1>
-	<button id="exportPDF">Generate PDF</button>
-	<button id="exportImage">Generate Image</button>
-	<div id="vizContainer"></div>
-	<script src="./app.js"></script>
+
+  <h1>The Most Subscribed YouTube Channels</h1>
+
+    <div id="vizContainer"></div>
+    
+    <button id="exportPDF">Generate PDF</button>
+    <button id="exportImage">Generate Image</button>
+
+    <script src="./app.js"></script>
+
 </body>
+
 </html>
