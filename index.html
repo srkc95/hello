@@ -1,53 +1,74 @@
 <html>
 <head>
 
-    <title>The Most Subscribed YouTube Channels</title>
+    <title>Commercial Banks in India</title>
 
     <script type="text/javascript"
 	    src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
-    <script type="text/javascript"></script>
-
-    <style>
-        body {
-            background-color: #f5f5f5;
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        
-        #vizContainer {
-            margin: 0 auto;
-        }
-        
-        h1 {
-            color: #333333;
-            margin-top: 20px;
-        }
-        
-        button {
-            margin: 20px;
-            background-color: #333333;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-    </style>
-
-</head>
-
-<body>
-
-  <h1>The Most Subscribed YouTube Channels</h1>
-  
-  <button id="exportPDF">Generate PDF</button>
-  <button id="exportImage">Generate Image</button>
-
-    <div id="vizContainer"></div>
-
-    <script src="./app.js"></script>
-
-</body>
-
-</html>
+    <script type="text/javascript">
+    
+        function showTop10States() {
+            var viz = new tableau.Viz(document.getElementById("vizContainer"), "https://public.tableau.com/views/CommercialBanksinIndia-Dashboard/Dashboard");
+            viz.addEventListener(tableau.TableauEventName.TAB_SWITCH, function(event) {
+                if (event.getWorksheet().getName() == "State-wise Functioning Offices") {
+                    event.getWorksheet().getSummaryDataAsync().then(function(sumdata) {
+                        var data = [];
+                        var numRows = sumdata.getTotalRowCount();
+                        for (var i = 0; i < numRows; i++) {
+                            var state = sumdata.getData()[i][0].formattedValue;
+                            var numOffices = sumdata.getData()[i][1].value;
+                            data.push({state: state, numOffices: numOffices});
+                        }
+                        data.sort(function(a, b) {
+                            return b.numOffices - a.numOffices;
+                        });
+                        var top10 = data.slice(0, 10);
+                        var stateNames = top10.map(function(d) { return d.state; });
+                        var numOffices = top10.map(function(d) { return d.numOffices; });
+                        var ctx = document.getElementById("myChart").getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: stateNames,
+                                datasets: [{
+                                    label: 'Number of Functioning Bank Offices',
+                                    data: numOffices,
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)',
+                                        'rgba(255, 159, 64, 0.2)',
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)',
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+                    });
+               
